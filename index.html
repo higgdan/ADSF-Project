@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<title>Accentio Translate lyrics</title>
+</head>
+<body>
+ <!-- Navbar -->
+ <div class="navbar">
+  <div class="navWrapper">
+    <div class="logo">
+      <a href="#hero">Accentio.</a>
+    </div>
+    <ul>
+      <li>
+        <a href="#home">Home</a>
+        <a href="#favs">Favourites</a>
+      </li>
+      <a href="#search""></a>
+    </ul>
+  </div>
+</div>
+
+<!-- Container -->
+<div class="bg-secondary-100 pt-40 pr-20 pb-20 pl-20 flex-col max-w-full overflow-hidden">
+
+<!-- Header -->
+  <div class="flex flex-col gap-10 items-center">
+    <div class="flex flex-col gap-4 ">
+      <div class="text-7xl text-center font-black">Translate song lyrics<br>with Accentio.</div>
+      <div class="text-xl text-center">Search for any song and translate the lyrics<br>to find the beauty in the songs in your own language.</div>
+    </div>
+
+<!-- Search button -->
+<div id="search" class="mb-4 w-3/6 items-center flex grow">
+  <input id="searchInput" type="text" class="border border-black-300 focus:outline-none focus:border-indigo-500" placeholder="Search for a song">
+  <button id="searchButton" class="bg-indigo-500 hover:bg-indigo-600 text-white focus:outline-none">Search</button>
+</div>
+
+
+<!-- Display Results -->
+  <div id="results"></div>
+
+<!-- Image -->
+  <div class="flex flex-col gap-0 items-center shrink-0 relative">
+    <img class="relative" src="assets/image-1.png" alt="Image 1">
+    <div class="bg-yellow-300 p-8 flex flex-col items-center justify-start overflow-hidden">
+      <div class="text-2xl text-center font-bold">Find the beauty of the lyrics in your own language.</div>
+    </div>
+  </div>  
+
+<!-- Modal -->
+  <div id="modal" class="hidden fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-50">
+    <div class="bg-white rounded-lg p-8 relative">
+      <button id="closeModal" class="absolute top-4 right-4 bg-indigo-500 hover:bg-indigo-600 text-white py-2 px-4 rounded focus:outline-none">Close</button>
+      <div id="albumArtwork" class="mb-4"></div>
+      <h2 id="modalTitle" class="text-xl font-bold mb-4"></h2>
+      <h3 id="modalArtist"></h3>
+      <div id="player" class="audio-player"></div>
+      <div id="lyrics"></div>
+    </div>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="styles.css" rel="stylesheet">
+
+</body>
+</html>
