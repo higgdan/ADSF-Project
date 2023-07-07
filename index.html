@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find song for your Ingredients</title>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -43,30 +44,33 @@
                 </div>
             </div>
             
-        <div class="song-details">
-            <!-- modal close btn -->
-            <button type = "button" class = "btn modal-close-btn" id = "modal-close-btn">
-                <i class="fas fa-times"></i>
-            </button>
+            <!-- Modal Showing --> 
 
-            <!-- song content -->
-            <div class="song-details-content">
-                <!-- <h2 class = "track-title">Dish Name Here</h2>
-                <p class = "track-category">Category Name</p>
-                <div class = "track-instruct"> 
+            <div class="song-details">
+                <!-- modal close btn -->
+                <button type="button" class="btn modal-close-btn" id="modal-close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+
+                <!-- song content -->
+                <div class="song-details-content" id="song-details-content">
+                    <h2 class="track-title" id="track-title">Dish Name Here</h2>
+                    <p class="track-category" id="track-category">Category Name</p>
+                    <div class="track-instruct">
+                    </div>
                     <h3>Instructions:</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, quae aliquid expedita, quibusdam magni, officiis alias autem aliquam ipsum voluptates sed quis. A tempore id maxime libero, eius delectus quos!</p>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Error aliquam quos repellendus. Veniam sapiente sed nobis reiciendis vel vero nostrum, cum quae accusantium est nemo numquam molestias culpa earum voluptate, enim nesciunt iste, adipisci ipsa ex voluptates? Similique quos pariatur vitae natus, harum repellendus veniam cupiditate. Nemo voluptate earum maxime!</p>
+                    <div class="track-song-img" id="track-song-img">
+                        <img src="food.jpeg" alt="">
+                    </div>
+                    <div class="track-link" id="track-link">
+                        <a href="#" target="_blank">Watch Video</a>
+                    </div>
                 </div>
-                <div class = "track-song-img">
-                    <img src = "food.jpeg" alt="">
-                </div>
-                <div class = "track-link">
-                    <a href = "#" target="_blank">Watch Video</a>
-                </div> -->
             </div>
+
+            <!-- ... -->
+    
         </div>    
-        </div> 
     </div>
     
     <script src="script.js"></script>
