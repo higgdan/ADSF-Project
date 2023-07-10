@@ -1,72 +1,96 @@
 const searchBtn = document.getElementById('search-btn');
-const songList = document.getElementById('song');
-const songDetailsContent = document.querySelector('.song-details-content');
-const songDetails = document.querySelector('.song-details');
+const storyList = document.getElementById('story');
+const storyDetailsContent = document.querySelector('.story-details-content');
+const storyDetails = document.querySelector('.story-details');
 const recipeCloseBtn = document.getElementById('modal-close-btn');
 const modalTitle = document.querySelector("#track-title");
-const modalArtwork = document.querySelector("#track-song-img");
+const modalArtwork = document.querySelector("#track-story-img");
 const modalCategory = document.querySelector("#track-category");
 const modalTrackLink = document.querySelector("#track-link");
 
 // event listeners
-searchBtn.addEventListener('click', getsongList);
-songList.addEventListener('click', getsongTrack);
+searchBtn.addEventListener('click', getStoryList);
+storyList.addEventListener('click', getStoryTrack);
 recipeCloseBtn.addEventListener('click', () => {
-    songDetails.style.display = "none";
-    songDetailsContent.parentElement.classList.remove('showTrack');
+    storyDetails.style.display = "none";
+    storyDetailsContent.parentElement.classList.remove('showTrack');
 });
 
+// Generate a random image URL
+function generateRandomImageUrl() {
+    const imageUrls = [
+        './assets/story/story-1.png',
+        './assets/story/story-2.png',
+        './assets/story/story-3.png',
+        './assets/story/story-4.png',
+        './assets/story/story-5.png',
+        './assets/story/story-6.png',
+        './assets/story/story-7.png',
+        './assets/story/story-8.png',
+        './assets/story/story-9.png',
 
-// get song list that matches with the ingredients
-function getsongList() {
+        // Add more image URLs as needed
+    ];
+
+    const randomIndex = Math.floor(Math.random() * imageUrls.length);
+    return imageUrls[randomIndex];
+}
+
+// get story list that matches with the ingredients
+function getStoryList() {
     let searchInputTxt = document.getElementById('search-input').value.trim();
     fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchInputTxt}`)
         .then(response => response.json())
         .then(data => {
             let html = "";
             if (data.meals) {
-                data.meals.forEach(song => {
+                data.meals.forEach(story => {
+                    const randomImageUrl = generateRandomImageUrl();
                     html += `
-                        <div class="song-item" data-id="${song.idMeal}">
-                            <div class="song-img">
-                                <img src="${song.strMealThumb}" alt="song">
+                        <div class="story-item" data-id="${story.idMeal}">
+                            <div class="story-img">
+                                <img src="${randomImageUrl}" alt="story">
                             </div>
-                            <div class="song-name">
-                                <h3 class="pt-8">${song.strMeal}</h3>
-                                <p class="text-slate-500">${song.strMeal}</p>
+                            <div class="story-name pb-2">
+                                <h3 class="font-bold pt-4">${story.strMeal}</h3>
+                                <p class="text-slate-400">${story.strMeal}</p>
                                 <a href="#" class="track-btn pb-4">Get Lyrics</a>
                             </div>
                         </div>
                     `;
                 });
-                songList.classList.remove('notFound');
+                storyList.classList.remove('notFound');
             } else {
-                html = "Sorry, we didn't find any song!";
-                songList.classList.add('notFound');
+                html = "Sorry, we didn't find any story!";
+                storyList.classList.add('notFound');
             }
 
-            songList.innerHTML = html;
+            storyList.innerHTML = html;
+            document.querySelector('.title').style.display = 'block';
+            document.querySelector('.hero').style.display = 'none';
+            document.querySelector('.accentio-img').style.display = 'none';
+            document.querySelector('.subtext').style.display = 'none';
+
         });
 }
 
 
-// get track of the song
-function getsongTrack(e) {
+// get track of the story
+function getStoryTrack(e) {
     e.preventDefault();
     if (e.target.classList.contains('track-btn')) {
         let mealItem = e.target.parentElement.parentElement;
         fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealItem.dataset.id}`)
             .then(response => response.json())
-            .then(data => songTrackModal(data.meals[0]));
+            .then(data => storyTrackModal(data.meals[0]));
     }
 }
 
 // create a modal
-function songTrackModal(meal) {
-    songDetails.style.display = "block";
-    songDetailsContent.parentElement.classList.add('showTrack');
+function storyTrackModal(meal) {
+    storyDetails.style.display = "block";
+    storyDetailsContent.parentElement.classList.add('showTrack');
     modalTitle.innerText = meal.strMeal;
-    modalArtwork.innerHTML = `<img src="${meal.strMealThumb}" alt="Album Artwork">`;
     modalCategory.innerText = meal.strCategory;
     modalTrackLink.textContent = meal.strInstructions;
 }
