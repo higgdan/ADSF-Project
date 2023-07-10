@@ -7,6 +7,36 @@ const modalTitle = document.querySelector("#track-title");
 const modalArtwork = document.querySelector("#track-story-img");
 const modalCategory = document.querySelector("#track-category");
 const modalTrackLink = document.querySelector("#track-link");
+const langSelectEl = document.getElementById("language-selector");
+
+// define initial values of variables
+let chosenLangCode = "";
+let chosenLangText = "";
+
+// create a function to define the actions to fire when opening the appliction
+let onLoad = function() {
+    // if the local storage is NOT empty, set the langSelectEl option value and the chosen language variables 
+    if (localStorage.getItem("Accentio-langCode") !== null) {
+        langSelectEl.value = localStorage.getItem("Accentio-langCode");
+        setChosenLangVars();
+        console.log("Language set to: " + chosenLangText +" ("+ chosenLangCode + ")");
+    }
+}
+
+// update the language name and language code
+let setChosenLangVars = function() {
+    chosenLangCode = langSelectEl.value;
+    chosenLangText =  langSelectEl.options[langSelectEl.selectedIndex].text;
+}
+// set chosen language variables and save to local storage
+let selectLang = function() {
+    setChosenLangVars();
+    console.log("Language set to: " + chosenLangText +" ("+ chosenLangCode + ")");
+    localStorage.setItem("Accentio-langCode", chosenLangCode)
+}
+
+//every time an new langage option is chosen run the selectLang function
+langSelectEl.onchange = selectLang;
 
 // event listeners
 searchBtn.addEventListener('click', getStoryList);
@@ -94,3 +124,6 @@ function storyTrackModal(meal) {
     modalCategory.innerText = meal.strCategory;
     modalTrackLink.textContent = meal.strInstructions;
 }
+
+// execute application
+onLoad();
