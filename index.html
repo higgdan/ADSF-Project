@@ -1,38 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Storio: Translate short stories and fables</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-      <!-- Header -->
+    <!-- Header -->
 
-      <div class="container bg-secondary-100 pt-20 pr-20 pb-20 pl-20 flex-col max-w-full overflow-hidden">
+    <div class="container bg-secondary-100 pt-20 pr-20 pb-20 pl-20 flex-col max-w-full overflow-hidden">
         <div class="story-wrapper">
-            <div class="story-search"> 
+            <div class="story-search">
                 <h1 class="text-7xl text-center pb-4 font-black hero">Translate short stories with Storio.</h1>
-                <p class="subtext">Search for any short story and translate them find the beauty in the magic of storytelling in your own language.<br> 
+                <p class="subtext">Search for any short story and translate them find the beauty in the magic of
+                    storytelling in your own language.<br>
                 </p>
 
-            <!-- Search -->
+                <!-- Search -->
 
                 <div class="story-search-box pt-8">
-                    <input type="text" class = "search-control" placeholder="Enter a story name" id="search-input">
-                    <button type="submit" class="search-btn btn" id="search-btn"> 
-                        <i class="fas fa-search"></i> 
-                    </button> 
+                    <input type="text" class="search-control" placeholder="Enter a story name" id="search-input">
+                    <button type="submit" class="search-btn btn" id="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
                 </div>
             </div>
 
-             <!-- Image Cards -->
+            <!-- Image Cards -->
 
             <div class="story-result"> <!-- js link to data.story in the script.js file -->
                 <h2 class="title">Your Search Results</h2>
-                <div id = "story">
+                <div id="story">
                     <!-- story item -->
                     <!-- <div class="story-item">
                         <div class="story-img">
@@ -44,20 +49,22 @@
                         </div>
                     </div>  -->
                     <!-- end of story item -->
-         
+
                 </div>
             </div>
-            
+
 
             <!-- Hero Image -->
             <div class="flex flex-col gap-0 items-center shrink-0 relative">
                 <img class="accentio-img relative" src="assets/image-1.png" alt="Image 1">
-                <div class="bg-primary-100 subhero p-10 flex flex-col gap-2.5 items-center justify-start shrink-0 relative overflow-hidden">
-                <div class="text-2xl text-center font-bold">Find the beauty in the stories in your own language.</div>
+                <div
+                    class="bg-primary-100 subhero p-10 flex flex-col gap-2.5 items-center justify-start shrink-0 relative overflow-hidden">
+                    <div class="text-2xl text-center font-bold">Find the beauty in the stories in your own language.
+                    </div>
                 </div>
             </div>
 
-            <!-- Modal Showing --> 
+            <!-- Modal Showing -->
 
             <div class="story-details">
                 <!-- modal close btn -->
@@ -75,17 +82,22 @@
                             <p class="track-category" id="track-category">Category Name</p>
                             <h2 class="text-2xl font-bold track-title" id="track-title">Dish Name Here</h2>
                             <!-- Dropdown tailwind css-->
-                            
+
                             <div class="relative inline-block text-left">
                                 <div>
-                                  <button type="button" class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" id="menu-button" aria-expanded="true" aria-haspopup="true">
-                                    Options
-                                    <svg class="-mr-1 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                      <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-                                    </svg>
-                                  </button>
+                                    <button type="button"
+                                        class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                                        id="menu-button" aria-expanded="true" aria-haspopup="true">
+                                        Options
+                                        <svg class="-mr-1 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor"
+                                            aria-hidden="true">
+                                            <path fill-rule="evenodd"
+                                                d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
                                 </div>
-                              
+
                                 <!--
                                   Dropdown menu, show/hide based on menu state.
                               
@@ -96,21 +108,27 @@
                                     From: "transform opacity-100 scale-100"
                                     To: "transform opacity-0 scale-95"
                                 -->
-                                <div class="absolute left-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-                                  <div class="py-1" role="none">
-                                    <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-                                    <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Account settings</a>
-                                    <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">Support</a>
-                                    <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">License</a>
-                                    <form method="POST" action="#" role="none">
-                                      <button type="submit" class="text-gray-700 block w-full px-4 py-2 text-left text-sm" role="menuitem" tabindex="-1" id="menu-item-3">Sign out</button>
-                                    </form>
-                                  </div>
+                                <div class="absolute left-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                    role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                                    <div class="py-1" role="none">
+                                        <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
+                                        <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
+                                            tabindex="-1" id="menu-item-0">Account settings</a>
+                                        <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
+                                            tabindex="-1" id="menu-item-1">Support</a>
+                                        <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
+                                            tabindex="-1" id="menu-item-2">License</a>
+                                        <form method="POST" action="#" role="none">
+                                            <button type="submit"
+                                                class="text-gray-700 block w-full px-4 py-2 text-left text-sm"
+                                                role="menuitem" tabindex="-1" id="menu-item-3">Sign out</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
 
                         </div>
-                    </div> 
+                    </div>
                     <div class="track-instruct">
                         <h3>Short story:</h3>
                         <div class="track-link" id="track-link">
@@ -118,15 +136,16 @@
                         </div>
                     </div>
 
-                   
+
                 </div>
             </div>
 
-  
-        </div>    
+
+        </div>
     </div>
-    
+
     <script src="script.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 </body>
+
 </html>
