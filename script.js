@@ -14,24 +14,24 @@ let chosenLangCode = "";
 let chosenLangText = "";
 
 // create a function to define the actions to fire when opening the appliction
-let onLoad = function() {
+let onLoad = function () {
     // if the local storage is NOT empty, set the langSelectEl option value and the chosen language variables 
     if (localStorage.getItem("Accentio-langCode") !== null) {
         langSelectEl.value = localStorage.getItem("Accentio-langCode");
         setChosenLangVars();
-        console.log("Language set to: " + chosenLangText +" ("+ chosenLangCode + ")");
+        console.log("Language set to: " + chosenLangText + " (" + chosenLangCode + ")");
     }
 }
 
 // update the language name and language code
-let setChosenLangVars = function() {
+let setChosenLangVars = function () {
     chosenLangCode = langSelectEl.value;
-    chosenLangText =  langSelectEl.options[langSelectEl.selectedIndex].text;
+    chosenLangText = langSelectEl.options[langSelectEl.selectedIndex].text;
 }
 // set chosen language variables and save to local storage
-let selectLang = function() {
+let selectLang = function () {
     setChosenLangVars();
-    console.log("Language set to: " + chosenLangText +" ("+ chosenLangCode + ")");
+    console.log("Language set to: " + chosenLangText + " (" + chosenLangCode + ")");
     localStorage.setItem("Accentio-langCode", chosenLangCode)
 }
 
@@ -46,6 +46,8 @@ recipeCloseBtn.addEventListener('click', () => {
     storyDetailsContent.parentElement.classList.remove('showTrack');
 });
 
+
+let usedImageUrls = [];
 // Generate a random image URL
 function generateRandomImageUrl() {
     const imageUrls = [
@@ -62,28 +64,48 @@ function generateRandomImageUrl() {
         // Add more image URLs as needed
     ];
 
-    const randomIndex = Math.floor(Math.random() * imageUrls.length);
+    // Check if all image URLs have been used
+    if (usedImageUrls.length === imageUrls.length) {
+        // Reset the used image URLs array
+        usedImageUrls = [];
+    }
+
+    // Generate a random index that hasn't been used before
+    let randomIndex;
+    do {
+        randomIndex = Math.floor(Math.random() * imageUrls.length);
+    } while (usedImageUrls.includes(randomIndex));
+
+    // Mark the generated index as used
+    usedImageUrls.push(randomIndex);
+
     return imageUrls[randomIndex];
 }
+
+// Usage example
+console.log(generateRandomImageUrl());
+// get story list that matches with the ingredients
 
 // get story list that matches with the ingredients
 function getStoryList() {
     let searchInputTxt = document.getElementById('search-input').value.trim();
-    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchInputTxt}`)
+    fetch(`https://shortstories-api.onrender.com/stories/?q=${searchInputTxt}`)
         .then(response => response.json())
         .then(data => {
+            console.log(data);
             let html = "";
-            if (data.meals) {
-                data.meals.forEach(story => {
+            if (data) {
+                console.log("hi");
+                data.forEach(story => {
                     const randomImageUrl = generateRandomImageUrl();
                     html += `
-                        <div class="story-item" data-id="${story.idMeal}">
+                        <div class="story-item" data-id="${story._id}">
                             <div class="story-img">
                                 <img src="${randomImageUrl}" alt="story">
                             </div>
                             <div class="story-name pb-2">
-                                <h3 class="font-bold pt-4">${story.strMeal}</h3>
-                                <p class="text-slate-400">${story.strMeal}</p>
+                                <h3 class="font-bold pt-4">${story.title}</h3>
+                                <p class="text-slate-400">${story.title}</p>
                                 <a href="#" class="track-btn pb-4">Get Lyrics</a>
                             </div>
                         </div>
@@ -109,20 +131,22 @@ function getStoryList() {
 function getStoryTrack(e) {
     e.preventDefault();
     if (e.target.classList.contains('track-btn')) {
-        let mealItem = e.target.parentElement.parentElement;
-        fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealItem.dataset.id}`)
+        let storyItem = e.target.parentElement;
+        // console.log(storyItem);
+        console.log(storyItem._id);
+        fetch(`https://shortstories-api.onrender.com/stories/${storyItem.id}`)
             .then(response => response.json())
-            .then(data => storyTrackModal(data.meals[0]));
+            .then(data => storyTrackModal(data[0]));
     }
 }
 
 // create a modal
-function storyTrackModal(meal) {
+function storyTrackModal(data) {
     storyDetails.style.display = "block";
     storyDetailsContent.parentElement.classList.add('showTrack');
-    modalTitle.innerText = meal.strMeal;
-    modalCategory.innerText = meal.strCategory;
-    modalTrackLink.textContent = meal.strInstructions;
+    modalTitle.innerText = data.title;
+    modalCategory.innerText = data.story;
+    modalTrackLink.textContent = data.moral;
 }
 
 // execute application
