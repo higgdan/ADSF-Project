@@ -8,6 +8,7 @@ const modalArtwork = document.querySelector("#track-story-img");
 const modalCategory = document.querySelector("#track-category");
 const modalTrackLink = document.querySelector("#track-link");
 const langSelectEl = document.getElementById("language-selector");
+let storyId = document.querySelector(".data-id");
 
 // define initial values of variables
 let chosenLangCode = "";
@@ -95,7 +96,7 @@ function getStoryList() {
             console.log(data);
             let html = "";
             if (data) {
-                console.log("hi");
+
                 data.forEach(story => {
                     const randomImageUrl = generateRandomImageUrl();
                     html += `
@@ -131,12 +132,33 @@ function getStoryList() {
 function getStoryTrack(e) {
     e.preventDefault();
     if (e.target.classList.contains('track-btn')) {
-        let storyItem = e.target.parentElement;
-        // console.log(storyItem);
-        console.log(storyItem._id);
-        fetch(`https://shortstories-api.onrender.com/stories/${storyItem.id}`)
+
+        let storyItem = e.target.parentElement.parentElement;
+        let storyId = $(storyItem).data("id");
+        // let storyItem = e.target.parentElement;
+        // // console.log(storyItem);
+        // console.log(storyItem._id);
+        // fetch(`https://shortstories-api.onrender.com/stories/`)
+        //     .then(response => response.json())
+        //     .then(data => storyTrackModal(data[""]));
+
+        fetch(`https://shortstories-api.onrender.com/stories/`)
             .then(response => response.json())
-            .then(data => storyTrackModal(data[0]));
+            .then(function (data) {
+                for (i = 0; i < data.length; i++) {
+                    if (data[i]._id === storyId) {
+                        storyTrackModal(data[i]);
+                    }
+                    else {
+                        console.log("no story");
+
+                    }
+                }
+            });
+
+
+
+
     }
 }
 
@@ -145,8 +167,9 @@ function storyTrackModal(data) {
     storyDetails.style.display = "block";
     storyDetailsContent.parentElement.classList.add('showTrack');
     modalTitle.innerText = data.title;
-    modalCategory.innerText = data.story;
-    modalTrackLink.textContent = data.moral;
+
+    modalTrackLink.textContent = data.story;
+    modalCategory.innerText = data.moral;
 }
 
 // execute application
