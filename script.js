@@ -46,6 +46,8 @@ recipeCloseBtn.addEventListener('click', () => {
     storyDetailsContent.parentElement.classList.remove('showTrack');
 });
 
+
+let usedImageUrls = [];
 // Generate a random image URL
 function generateRandomImageUrl() {
     const imageUrls = [
@@ -62,9 +64,27 @@ function generateRandomImageUrl() {
         // Add more image URLs as needed
     ];
 
-    const randomIndex = Math.floor(Math.random() * imageUrls.length);
+    // Check if all image URLs have been used
+    if (usedImageUrls.length === imageUrls.length) {
+        // Reset the used image URLs array
+        usedImageUrls = [];
+    }
+
+    // Generate a random index that hasn't been used before
+    let randomIndex;
+    do {
+        randomIndex = Math.floor(Math.random() * imageUrls.length);
+    } while (usedImageUrls.includes(randomIndex));
+
+    // Mark the generated index as used
+    usedImageUrls.push(randomIndex);
+
     return imageUrls[randomIndex];
 }
+
+// Usage example
+console.log(generateRandomImageUrl());
+// get story list that matches with the ingredients
 
 // get story list that matches with the ingredients
 function getStoryList() {
