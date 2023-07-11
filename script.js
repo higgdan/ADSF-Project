@@ -14,7 +14,7 @@ let storyId = document.querySelector(".data-id");
 let chosenLangCode = "";
 let chosenLangText = "";
 
-// create a function to define the actions to fire when opening the appliction
+// create a function to define the actions to fire when opening the application
 let onLoad = function () {
     // if the local storage is NOT empty, set the langSelectEl option value and the chosen language variables 
     if (localStorage.getItem("Accentio-langCode") !== null) {
@@ -33,10 +33,10 @@ let setChosenLangVars = function () {
 let selectLang = function () {
     setChosenLangVars();
     console.log("Language set to: " + chosenLangText + " (" + chosenLangCode + ")");
-    localStorage.setItem("Accentio-langCode", chosenLangCode)
+    localStorage.setItem("Accentio-langCode", chosenLangCode);
 }
 
-//every time an new langage option is chosen run the selectLang function
+// every time an new language option is chosen run the selectLang function
 langSelectEl.onchange = selectLang;
 
 // event listeners
@@ -148,6 +148,8 @@ function getStoryTrack(e) {
                 for (i = 0; i < data.length; i++) {
                     if (data[i]._id === storyId) {
                         storyTrackModal(data[i]);
+                        console.log(data[i].story, data[i].moral);
+                        translateStory(data[i].story, data[i].moral)
                     }
                     else {
                         console.log("no story");
@@ -155,10 +157,6 @@ function getStoryTrack(e) {
                     }
                 }
             });
-
-
-
-
     }
 }
 
@@ -167,9 +165,55 @@ function storyTrackModal(data) {
     storyDetails.style.display = "block";
     storyDetailsContent.parentElement.classList.add('showTrack');
     modalTitle.innerText = data.title;
+    if (localStorage.getItem("Accentio-langCode") !== null) {
+        modalTrackLink.textContent = "Please wait, translating...";
+        modalCategory.innerText = "";
+    } else {modalTrackLink.textContent = data.story;
+            modalCategory.innerText = data.moral;
+    };
+    
+}
 
-    modalTrackLink.textContent = data.story;
-    modalCategory.innerText = data.moral;
+// input the story body and moral text and chosen language into the fetch method
+// modified sample code from the Lecto Translation API
+// story/moral/text(s) to translate and target language must be set within an array.
+let translateStory = function (storyBody, storyMoral) {
+    const url = 'https://api.lecto.ai/v1/translate/text';
+    const apiKey = 'HHVCNBF-2FJ4J48-NHYT9HA-TY41ZRY';
+    const payload = {
+        texts: [storyBody, storyMoral],
+        to: [chosenLangCode],
+        from: "en"
+    };
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'X-API-Key': apiKey,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            console.log(data.translations[0].translated[0]);
+            let translatedStoryBody = data.translations[0].translated[0];
+            let translatedStoryMoral = data.translations[0].translated[1];
+            console.log(translatedStoryBody, translatedStoryMoral);
+            replaceStoryBody(translatedStoryBody, translatedStoryMoral)
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+let replaceStoryBody = function(repStory, repMoral) {
+    if (localStorage.getItem("Accentio-langCode") !== null) {
+    modalTrackLink.textContent = repStory;
+    modalCategory.innerText = repMoral;
+    }
 }
 
 // execute application
