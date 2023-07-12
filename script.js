@@ -8,17 +8,17 @@ const modalArtwork = document.querySelector("#track-story-img");
 const modalCategory = document.querySelector("#track-category");
 const modalTrackLink = document.querySelector("#track-link");
 const langSelectEl = document.getElementById("language-selector");
-let storyId = document.querySelector(".data-id");
 
 // define initial values of variables
 let chosenLangCode = "";
 let chosenLangText = "";
+let storyId = "";
 
 // create a function to define the actions to fire when opening the application
 let onLoad = function () {
     // if the local storage is NOT empty, set the langSelectEl option value and the chosen language variables 
-    if (localStorage.getItem("Accentio-langCode") !== null) {
-        langSelectEl.value = localStorage.getItem("Accentio-langCode");
+    if (localStorage.getItem("Storio-langCode") !== null) {
+        langSelectEl.value = localStorage.getItem("Storio-langCode");
         setChosenLangVars();
         console.log("Language set to: " + chosenLangText + " (" + chosenLangCode + ")");
     }
@@ -33,7 +33,9 @@ let setChosenLangVars = function () {
 let selectLang = function () {
     setChosenLangVars();
     console.log("Language set to: " + chosenLangText + " (" + chosenLangCode + ")");
-    localStorage.setItem("Accentio-langCode", chosenLangCode);
+    localStorage.setItem("Storio-langCode", chosenLangCode);
+    console.log("DDD " + storyId);
+    fetchStoryMoral();
 }
 
 // every time an new language option is chosen run the selectLang function
@@ -41,7 +43,7 @@ langSelectEl.onchange = selectLang;
 
 // event listeners
 searchBtn.addEventListener('click', getStoryList);
-storyList.addEventListener('click', getStoryTrack);
+storyList.addEventListener('click', setStoryIdVar);
 recipeCloseBtn.addEventListener('click', () => {
     storyDetails.style.display = "none";
     storyDetailsContent.parentElement.classList.remove('showTrack');
@@ -83,10 +85,6 @@ function generateRandomImageUrl() {
     return imageUrls[randomIndex];
 }
 
-// Usage example
-console.log(generateRandomImageUrl());
-// get story list that matches with the ingredients
-
 // get story list that matches with the ingredients
 function getStoryList() {
     let searchInputTxt = document.getElementById('search-input').value.trim();
@@ -123,55 +121,57 @@ function getStoryList() {
             document.querySelector('.hero').style.display = 'none';
             document.querySelector('.accentio-img').style.display = 'none';
             document.querySelector('.subtext').style.display = 'none';
-
         });
 }
 
-
-// get track of the story
-function getStoryTrack(e) {
+// sets storyId variable to match story chosen tyhen fires fetchStoryMoral function
+function setStoryIdVar(e) {
     e.preventDefault();
     if (e.target.classList.contains('track-btn')) {
-
         let storyItem = e.target.parentElement.parentElement;
-        let storyId = $(storyItem).data("id");
-        // let storyItem = e.target.parentElement;
-        // // console.log(storyItem);
-        // console.log(storyItem._id);
-        // fetch(`https://shortstories-api.onrender.com/stories/`)
-        //     .then(response => response.json())
-        //     .then(data => storyTrackModal(data[""]));
+        storyId = $(storyItem).data("id");
+        console.log("DDD " + storyId);
 
-        fetch(`https://shortstories-api.onrender.com/stories/`)
-            .then(response => response.json())
-            .then(function (data) {
-                for (i = 0; i < data.length; i++) {
-                    if (data[i]._id === storyId) {
-                        storyTrackModal(data[i]);
-                        console.log(data[i].story, data[i].moral);
-                        translateStory(data[i].story, data[i].moral)
-                    }
-                    else {
-                        console.log("no story");
-
-                    }
-                }
-            });
+        fetchStoryMoral();
     }
 }
+
+// fetches story and moral and feeds data into create modal and translate functions
+let fetchStoryMoral = function() {
+    fetch(`https://shortstories-api.onrender.com/stories/`)
+    .then(response => response.json())
+    .then(function (data) {
+        for (i = 0; i < data.length; i++) {
+            if (data[i]._id === storyId) {
+                storyTrackModal(data[i]);
+                console.log(data[i].story + "\n" + data[i].moral);
+                if (localStorage.getItem("Storio-langCode") !== null) {
+                    translateStory(data[i].story, data[i].moral)
+                }
+            }
+            else {
+                console.log("no story");
+            }
+        }
+    });
+}
+
+// 33 story body over 1000char, 0 moral, 44 combined
+// first story is under combined char limit
+// second story is over combined char limit
+// third story is over story char limit
 
 // create a modal
 function storyTrackModal(data) {
     storyDetails.style.display = "block";
     storyDetailsContent.parentElement.classList.add('showTrack');
     modalTitle.innerText = data.title;
-    if (localStorage.getItem("Accentio-langCode") !== null) {
+    if (localStorage.getItem("Storio-langCode") !== null) {
         modalTrackLink.textContent = "Please wait, translating...";
         modalCategory.innerText = "";
     } else {modalTrackLink.textContent = data.story;
             modalCategory.innerText = data.moral;
     };
-    
 }
 
 // input the story body and moral text and chosen language into the fetch method
@@ -198,10 +198,9 @@ let translateStory = function (storyBody, storyMoral) {
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            console.log(data.translations[0].translated[0]);
             let translatedStoryBody = data.translations[0].translated[0];
             let translatedStoryMoral = data.translations[0].translated[1];
-            console.log(translatedStoryBody, translatedStoryMoral);
+            console.log(translatedStoryBody + "\n" + translatedStoryMoral);
             replaceStoryBody(translatedStoryBody, translatedStoryMoral)
         })
         .catch(error => {
@@ -210,7 +209,7 @@ let translateStory = function (storyBody, storyMoral) {
 }
 
 let replaceStoryBody = function(repStory, repMoral) {
-    if (localStorage.getItem("Accentio-langCode") !== null) {
+    if (localStorage.getItem("Storio-langCode") !== null) {
     modalTrackLink.textContent = repStory;
     modalCategory.innerText = repMoral;
     }
