@@ -8,7 +8,7 @@ const modalArtwork = document.querySelector("#track-story-img");
 const modalCategory = document.querySelector("#track-category");
 const modalTrackLink = document.querySelector("#track-link");
 const langSelectEl = document.getElementById("language-selector");
-let storyId = document.querySelector(".data-id");
+
 
 // define initial values of variables
 let chosenLangCode = "";
@@ -106,7 +106,7 @@ function getStoryList() {
                             </div>
                             <div class="story-name pb-2">
                                 <h3 class="font-bold pt-4">${story.title}</h3>
-                                <p class="text-slate-400">${story.title}</p>
+                                <p class="text-slate-400">${"~" + story.author}</p>
                                 <a href="#" class="track-btn pb-4">Get Story</a>
                             </div>
                         </div>
@@ -135,12 +135,7 @@ function getStoryTrack(e) {
 
         let storyItem = e.target.parentElement.parentElement;
         let storyId = $(storyItem).data("id");
-        // let storyItem = e.target.parentElement;
-        // // console.log(storyItem);
-        // console.log(storyItem._id);
-        // fetch(`https://shortstories-api.onrender.com/stories/`)
-        //     .then(response => response.json())
-        //     .then(data => storyTrackModal(data[""]));
+
 
         fetch(`https://shortstories-api.onrender.com/stories/`)
             .then(response => response.json())
@@ -151,13 +146,9 @@ function getStoryTrack(e) {
                     }
                     else {
                         console.log("no story");
-
                     }
                 }
             });
-
-
-
 
     }
 }
@@ -166,7 +157,7 @@ function getStoryTrack(e) {
 function storyTrackModal(data) {
     storyDetails.style.display = "block";
     storyDetailsContent.parentElement.classList.add('showTrack');
-    modalTitle.innerText = data.title;
+    modalTitle.innerText = data.title.toUpperCase();
 
     modalTrackLink.textContent = data.story;
     modalCategory.innerText = data.moral;
