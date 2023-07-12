@@ -104,7 +104,7 @@ function getStoryList() {
                             </div>
                             <div class="story-name pb-2">
                                 <h3 class="font-bold pt-4">${story.title}</h3>
-                                <p class="text-slate-400">${story.title}</p>
+                                <p class="text-slate-400">${"~" + story.author}</p>
                                 <a href="#" class="track-btn pb-4">Get Story</a>
                             </div>
                         </div>

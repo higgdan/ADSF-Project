@@ -12,6 +12,7 @@
   --accentio-dark: #272727;
   --accentio-gray: #A9A9A9;
   --white: #fff;
+
 }
 
 h1 {
@@ -62,6 +63,11 @@ body {
 
 .story-search {
   margin: 2rem 0;
+}
+
+#language-selector {
+  color: black;
+
 }
 
 .story-search cite {
@@ -270,22 +276,18 @@ body {
 }
 
 .track-category {
-  background: var(--white);
   font-weight: 600;
-  color: var(--accentio-dark);
+  color: var(--white);
   display: inline-block;
   padding: 0.2rem 0.5rem;
   border-radius: 0.3rem;
 }
 
-.track-category {
-  background: var(--white);
-  font-weight: 600;
-  color: var(--accentio-dark);
-  display: inline-block;
-  padding: 0.2rem 0.5rem;
-  border-radius: 0.3rem;
+.moral-category {
+  background-color: black;
 }
+
+
 
 .track-instruct {
   padding: 2rem 0;
