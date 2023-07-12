@@ -58,6 +58,7 @@ Other that settling on our APIs, there were a couple of merge conflicts and issu
 
 ## Future Development
 In order to extend our application beyond the MVP delivered, we believe our application could be further developed in the following ways:
+* Improve the User Experience ( Search Functionality, Navigation, and speed)
 * Extending the values in local storage to include multiple languages.
 * Also potentially store entire stories into local storage to save on fetch calls to 3rd party servers.
 * cleanup code: the list of supported languages was long, but was manually constructed as the list required editing down (double-ups and extraneous ISO codes, BCP47 language tags). There is provision to dynamically populate the language selector from the API, so perhaps that can be done while also cleaning up the values that mess up the list.
