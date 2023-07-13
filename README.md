@@ -63,7 +63,8 @@ In order to extend our application beyond the MVP delivered, we believe our appl
 * Cleanup code: the list of supported languages was long, but was manually constructed as the list required editing down (double-ups and extraneous ISO codes, BCP47 language tags). There is provision to dynamically populate the language selector from the API, so perhaps that can be done while also cleaning up the values that mess up the list.
 * Improve translation: due to time constraints, a bugfix was implemented that was not ideal, and cut down on the total number of stories available. In order to resolve this, we would need to implement another function that handles splicing a story into parts, so it falls within the 1000 character limit of the Translation API.
 * The ideal deployment of this application would instead use the Google Translate API - when asking native speakers of various languages, we found Lecto Translate API translation to be ***too*** literal, and missed out on certain nuance and idioms.
-* Potentially Replace our storyAPI with an other API that has more stories and functionalities. ALso replace the images with an image that would match the story.
+* Potentially replace the Short Stories API with another API that has more stories and features. 
+* Possibly replace the story card images with an images that match the story title/contents.
 
 
 ## Associated links:
