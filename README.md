@@ -3,7 +3,7 @@
 
 For the first bootcamp group project, our team, ADSF (Arshad , Daniel and Shaun!) set out to collaboratively build an interactive application that solves a real world problem. 
 
-![An example of the landing page for Accentio](./assets/images/placeholder1.png)
+![An example of the landing page for Accentio](./assets/landing-page.png)
 
 ## Choosing a problem to solve!
 Settling on an idea that would address a real-world problem wasn't easy! A top-down approach of spit-balling ideas of problems we wanted to solve, then finding the relevant APIs didn't work for us, so we settled for browsing websites with lists of free APIs hoping to find two that would synergise together in a meaningful way. 
@@ -38,30 +38,31 @@ The initial mockup of our application utilised the spotify API to generate a lis
 
 Team member Arshad spent considerable time narrowing down our options and had almost settled on Carlytic API, but even that had issues. Many of the lyric APIs returned the same error, i.e. no-cors, which we could not resolve on our end. Due to time constraints, our team decided to change our focus and instead use the Short Stories API, which was much easier to make requests from and also to implement the output.
 
-![An example of the story selection function in action](./assets/images/placeholder2.png)
+![An example of the story selection function in action](./assets/story-list.png)
 
 ### API 2 - Translation
 Initially we narrowed down the candidates for a possible translation APIs to Libre, Lecto and Google. Libre Translate was initially very appealing as the documentation was understandable and had examples that were clear and implementable given our current capability. On closer inspection, Libre actually required considerable paid access ($30!) for an API key. Google on the other hand was a step too far, beyond our capability to understand and implement quickly.
 
 Lecto Translation API worked for us as there were over 90 languages to translate to; the documentation was well laid out, easy to understand; and the examples were robust, for multiple coding languages, including vanilla JavaScript (all contained in its own github repo!)
 
-![An example of the modal with a translated story](./assets/images/placeholder3.png)
+![An example of the modal with a translated story](./assets/Storio-Translate.gif)
 
 ## CSS Styling
 One key requirement of the project was to style our application with a new CSS framework not previously encountered in the coursework. Tailwind seemed like an easy choice that had name recognition. The features of Tailwind that we found streamlined styling our application was being able to quickly implement styling from within the HTML file, and the  modular, class-naming paradigm reduced the need to continually come up with unique class names.
 
 ## Other Challenges
-Other that settling on our APIs, there were a couple of merge conflicts and issues that arose that became valuable learning experiences into the aspects of group collaboration.
-* Our first pseudo-conflict arose when a modal was initially constructed as static HTML, but moved to become dynamically populated in the JavaScript, thus impeding another feature branch that was developed on the assumption that the references modal were still in the HTML. 
+Other than settling on our APIs, there were a couple of merge conflicts and issues that arose that became valuable learning experiences into the aspects of group collaboration.
+* Our first pseudo-conflict arose when a modal was initially constructed as static HTML, but moved to become dynamically populated in the JavaScript, thus impeding another feature branch that was developed on the assumption that the references to the modal were still in the HTML. 
 * When a pull request in github had conflicts that prevented merging, yet we were ok with the proposed changes, we learned how tho accept changes between main and the feature branch within VSCode.
-
 
 ## Future Development
 In order to extend our application beyond the MVP delivered, we believe our application could be further developed in the following ways:
-* Improve the User Experience ( Search Functionality, Navigation, and speed)
+* Improve the User Experience (Search Functionality, Navigation, and speed)
 * Extending the values in local storage to include multiple languages.
 * Also potentially store entire stories into local storage to save on fetch calls to 3rd party servers.
-* cleanup code: the list of supported languages was long, but was manually constructed as the list required editing down (double-ups and extraneous ISO codes, BCP47 language tags). There is provision to dynamically populate the language selector from the API, so perhaps that can be done while also cleaning up the values that mess up the list.
+* Cleanup code: the list of supported languages was long, but was manually constructed as the list required editing down (double-ups and extraneous ISO codes, BCP47 language tags). There is provision to dynamically populate the language selector from the API, so perhaps that can be done while also cleaning up the values that mess up the list.
+* Improve translation: due to time constraints, a bugfix was implemented that was not ideal, and cut down on the total number of stories available. In order to resolve this, we would need to implement another function that handles splicing a story into parts, so it falls within the 1000 character limit of the Translation API.
+* The ideal deployment of this application would instead use the Google Translate API - when asking native speakers of various languages, we found Lecto Translate API translation to be ***too*** literal, and missed out on certain nuance and idioms.
 
 
 ## Associated links:
