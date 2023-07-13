@@ -12,19 +12,15 @@
 </head>
 
 <body>
-
     <!-- Header -->
-
     <div class="container bg-secondary-100 pt-20 pr-20 pb-20 pl-20 flex-col max-w-full overflow-hidden">
         <div class="story-wrapper">
             <div class="story-search">
                 <h1 class="text-7xl text-center pb-4 font-black hero">Translate short stories with Storio.</h1>
                 <p class="subtext">Search for any short story and translate them find the beauty in the magic of
-                    storytelling in your own language.<br>
-                </p>
+                    storytelling in your own language.<br></p>
 
                 <!-- Search -->
-
                 <div class="story-search-box pt-8">
                     <input type="text" class="search-control" placeholder="Enter a story name" id="search-input">
                     <button type="submit" class="search-btn btn" id="search-btn">
@@ -34,38 +30,22 @@
             </div>
 
             <!-- Image Cards -->
-
             <div class="story-result"> <!-- js link to data.story in the script.js file -->
                 <h2 class="title">Your Search Results</h2>
                 <div id="story">
-                    <!-- story item -->
-                    <!-- <div class="story-item">
-                        <div class="story-img">
-                            <img src="book.jpeg" alt="food">
-                        </div>
-                        <div class="story-name">
-                            <h3>Potato Chips</h3>
-                            <a href="#" class="track-btn">Get Book</a>
-                        </div>
-                    </div>  -->
-                    <!-- end of story item -->
-
                 </div>
             </div>
-
 
             <!-- Hero Image -->
             <div class="flex flex-col gap-0 items-center shrink-0 relative">
                 <img class="accentio-img relative" src="assets/image-1.png" alt="Image 1">
-                <div
-                    class="bg-primary-100 subhero p-10 flex flex-col gap-2.5 items-center justify-start shrink-0 relative overflow-hidden">
+                <div class="bg-primary-100 subhero p-10 flex flex-col gap-2.5 items-center justify-start shrink-0 relative overflow-hidden">
                     <div class="text-2xl text-center font-bold">Find the beauty in the stories in your own language.
                     </div>
                 </div>
             </div>
 
             <!-- Modal Showing -->
-
             <div class="story-details">
                 <!-- modal close btn -->
                 <button type="button" class="btn modal-close-btn" id="modal-close-btn">
@@ -74,14 +54,10 @@
 
                 <!-- story content -->
                 <div class="hero-image story-details-content" id="story-details-content">
-                    <div class="track-detail-container">
-                        <!-- <div class="track-story-img" id="track-story-img">
-                            <img src="food.jpeg" alt="">
-                        </div> -->
+                    <div class="track-detail-container">                       
                         <div class="track-detail-right">
-
                             <h2 class="text-2xl font-bold track-title" id="track-title">Dish Name Here</h2>
-
+                            <!-- Language Select Box -->
                             <select name="language" class="text-black" id="language-selector">
                                 <option value="" disabled selected>Select a language...</option>
                                 <option value="af">Afrikaans</option>
@@ -174,33 +150,25 @@
                                 <option value="yo">Yoruba</option>
                                 <option value="zu">Zulu</option>
                             </select>
-
-
                         </div>
                     </div>
                     <div class="track-instruct">
-                        <h3>Short story:</h3>
+                        <h2 class="text-xl font-bold">An Aesop Fable</h2>
                         <div class="track-link" id="track-link">
                             <a href="#" target="_blank">Watch Video</a>
                         </div>
-                        <div class="moral-category">
-                            <h3 style="font-weight: 500; text-decoration: underline;">
-                                Moral Of the
-                                Story</h3>
+                        <div class="py-8 rounded-lg moral-category">
+                            <h3 class="text-lg font-bold pb-4" style="font-weight: 500; text-decoration: underline;">Moral of the Story</h3>
                             <p class="track-category" id="track-category">Category Name</p>
                         </div>
                     </div>
-
-
                 </div>
             </div>
-
-
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.7.0.js"
-        integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
-
+        integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous">
+    </script>
     <script src="script.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 </body>
