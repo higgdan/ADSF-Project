@@ -34,7 +34,7 @@ let selectLang = function () {
     setChosenLangVars();
     console.log("Language set to: " + chosenLangText + " (" + chosenLangCode + ")");
     localStorage.setItem("Storio-langCode", chosenLangCode);
-    console.log("DDD " + storyId);
+    // run fetchStoryMoral then translateStory functions using the updated chosenLangCode
     fetchStoryMoral();
 }
 
@@ -49,7 +49,6 @@ recipeCloseBtn.addEventListener('click', () => {
     storyDetailsContent.parentElement.classList.remove('showTrack');
 });
 
-
 let usedImageUrls = [];
 // Generate a random image URL
 function generateRandomImageUrl() {
@@ -63,8 +62,6 @@ function generateRandomImageUrl() {
         './assets/story/story-7.png',
         './assets/story/story-8.png',
         './assets/story/story-9.png',
-
-        // Add more image URLs as needed
     ];
 
     // Check if all image URLs have been used
@@ -85,7 +82,7 @@ function generateRandomImageUrl() {
     return imageUrls[randomIndex];
 }
 
-// get story list that matches with the ingredients
+// get story list
 function getStoryList() {
     let searchInputTxt = document.getElementById('search-input').value.trim();
     fetch(`https://shortstories-api.onrender.com/stories/?q=${searchInputTxt}`)
@@ -96,7 +93,10 @@ function getStoryList() {
             if (data) {
 
                 data.forEach(story => {
+                    // prevents the given story card from being created if the combined story and moral character count is over the limit for the translate API
+                    if ((story.story.length + story.moral.length) > 1000) {return}
                     const randomImageUrl = generateRandomImageUrl();
+                    // creates a story card, assigns the ID and author from the API data
                     html += `
                         <div class="story-item" data-id="${story._id}">
                             <div class="story-img">
@@ -124,24 +124,23 @@ function getStoryList() {
         });
 }
 
-// sets storyId variable to match story chosen tyhen fires fetchStoryMoral function
+// sets storyId variable to match story list card then fires fetchStoryMoral function
 function setStoryIdVar(e) {
     e.preventDefault();
     if (e.target.classList.contains('track-btn')) {
         let storyItem = e.target.parentElement.parentElement;
         storyId = $(storyItem).data("id");
-        console.log("DDD " + storyId);
-
         fetchStoryMoral();
     }
 }
 
 // fetches story and moral and feeds data into create modal and translate functions
-let fetchStoryMoral = function() {
+let fetchStoryMoral = function () {
     fetch(`https://shortstories-api.onrender.com/stories/`)
     .then(response => response.json())
     .then(function (data) {
         for (i = 0; i < data.length; i++) {
+            // checks if given data value matches that assigned to chosen story list card
             if (data[i]._id === storyId) {
                 storyTrackModal(data[i]);
                 console.log(data[i].story + "\n" + data[i].moral);
@@ -155,11 +154,6 @@ let fetchStoryMoral = function() {
         }
     });
 }
-
-// 33 story body over 1000char, 0 moral, 44 combined
-// first story is under combined char limit
-// second story is over combined char limit
-// third story is over story char limit
 
 // create a modal
 function storyTrackModal(data) {
@@ -194,7 +188,7 @@ let translateStory = function (storyBody, storyMoral) {
             'Accept': 'application/json'
         },
         body: JSON.stringify(payload)
-    })
+        })
         .then(response => response.json())
         .then(data => {
             console.log(data);
@@ -208,7 +202,8 @@ let translateStory = function (storyBody, storyMoral) {
         });
 }
 
-let replaceStoryBody = function(repStory, repMoral) {
+// replaces existing story and moral with new translated ones
+let replaceStoryBody = function (repStory, repMoral) {
     if (localStorage.getItem("Storio-langCode") !== null) {
     modalTrackLink.textContent = repStory;
     modalCategory.innerText = repMoral;
